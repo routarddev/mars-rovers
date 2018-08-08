@@ -1,5 +1,5 @@
 import controller.RoversControllerTest;
-import model.HeadingTest;
+import model.DirectionTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         RoversControllerTest.class,
-        HeadingTest.class
+        DirectionTest.class
 })
 public class MarsRoversTestSuite {
 }
