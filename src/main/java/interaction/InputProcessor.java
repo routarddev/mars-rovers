@@ -1,12 +1,12 @@
 package interaction;
 
-import utils.Constants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import model.Coordinates;
-import model.Direction;
+import model.Orientation;
 import model.Position;
 import model.Rover;
+import utils.Constants;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -33,7 +33,7 @@ public class InputProcessor {
      * @param fileName
      * @throws IOException
      */
-    public void processFromFile(String fileName) throws IOException {
+    public void processFromFile(String fileName) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
 
         //Expecting plateau size information in the heading
@@ -43,11 +43,12 @@ public class InputProcessor {
             plateau = new Coordinates(  Integer.parseInt(plateauCoord[0]),
                                         Integer.parseInt(plateauCoord[1]));
         } //else finish with error message
-        else return;
+        else throw new Exception(String.format(Constants.ERROR_MSG_WRONG_PATTERN, line));
 
         int numberOfRovers = 0;
-        while ((line = br.readLine().toUpperCase()) != null) {
-            if (!hasExpectedPattern(line, true)) return;
+        while ((line = br.readLine()) != null) {
+            if (!hasExpectedPattern(line.toUpperCase(), true))
+                throw new Exception(String.format(Constants.ERROR_MSG_WRONG_PATTERN, line));
             Rover rover = processLines(numberOfRovers++, line);
             rovers.put(rover, br.readLine().toUpperCase());
         }
@@ -58,7 +59,7 @@ public class InputProcessor {
     /**
      *
      */
-    public void processFromConsole() {
+    public void processFromConsole() throws Exception {
         Scanner scanner = new Scanner(System.in);
 
         String line = scanner.nextLine();
@@ -67,13 +68,13 @@ public class InputProcessor {
             plateau = new Coordinates(  Integer.parseInt(plateauCoord[0]),
                     Integer.parseInt(plateauCoord[1]));
         } //else finish with error message
-        else return;
+        else throw new Exception(String.format(Constants.ERROR_MSG_WRONG_PATTERN, line));
 
-        System.out.println("Read rovers positions and movements");
         int numberOfRovers = 0;
         while (scanner.hasNextLine()) {
             line = scanner.nextLine().toUpperCase();
-            if (!hasExpectedPattern(line, true)) return;
+            if (!hasExpectedPattern(line, true))
+                throw new Exception(String.format(Constants.ERROR_MSG_WRONG_PATTERN, line));
             Rover rover = processLines(numberOfRovers++, line);
             rovers.put(rover, scanner.nextLine().toUpperCase());
         }
@@ -89,8 +90,8 @@ public class InputProcessor {
     private Rover processLines(int count, String positionString) {
         String[] pos = positionString.split(Constants.LINE_SEPARATOR);
         Position position = new Position(new Coordinates(   Integer.parseInt(pos[0]),
-                Integer.parseInt(pos[1])),
-                Direction.valueOf(pos[2]));
+                                                            Integer.parseInt(pos[1])),
+                                                            Orientation.valueOf(pos[2]));
         return new Rover(count, "R" + count, position);
     }
 

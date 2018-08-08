@@ -13,4 +13,6 @@ public final class Constants {
     public static final String OUTPUT_FILE_PATHNAME = FILE_PATH + OUTPUT_FILENAME;
 
     public static final String LINE_SEPARATOR = " ";
+
+    public static final String ERROR_MSG_WRONG_PATTERN = "\nERROR: '%s' input with unexpected pattern\n";
 }

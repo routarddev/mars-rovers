@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by routarddev on 7/08/18.
  */
 @AllArgsConstructor
-public enum Direction {
+public enum Orientation {
 
     N(0), //NORTH
     E(1), //EAST
@@ -23,13 +23,12 @@ public enum Direction {
     private static Map map = new HashMap<>();
 
     static {
-        for (Direction direction : Direction.values()) {
-            map.put(direction.headingValue, direction);
+        for (Orientation orientation : Orientation.values()) {
+            map.put(orientation.headingValue, orientation);
         }
     }
 
-    public static Direction valueOf(int direction) {
-
-        return (Direction) map.get(direction);
+    public static Orientation valueOf(int direction) {
+        return (Orientation) map.get(direction);
     }
 }

@@ -3,7 +3,7 @@ package controller;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import model.Coordinates;
-import model.Direction;
+import model.Orientation;
 import model.Position;
 
 /**
@@ -17,14 +17,6 @@ public class RoversController {
     private Coordinates upperRightCoord;
     private String chainOfInstructions;
 
-    public Position getRoverFinalPosition(Position roverPosition,
-                                          Coordinates upperRightCoord,
-                                          String chainOfInstructions) {
-        for(char instruction: chainOfInstructions.toCharArray()) {
-            roverPosition = processInstruction(roverPosition, instruction);
-        }
-        return roverPosition;
-    }
 
     public Position getRoverFinalPosition() {
         for(char instruction: chainOfInstructions.toCharArray()) {
@@ -35,17 +27,17 @@ public class RoversController {
 
     private Position processInstruction(Position currentPosition, char instruction) {
         Coordinates newCoordinates = currentPosition.getCoordinates();
-        int headingValue = currentPosition.getDirection().getHeadingValue();
+        int headingValue = currentPosition.getOrientation().getHeadingValue();
 
         switch(instruction) {
             case 'L':
                 headingValue--;
-                headingValue = Math.floorMod(headingValue, Direction.values().length);
+                headingValue = Math.floorMod(headingValue, Orientation.values().length);
                 break;
 
             case 'R':
                 headingValue++;
-                headingValue = Math.floorMod(headingValue, Direction.values().length);
+                headingValue = Math.floorMod(headingValue, Orientation.values().length);
                 break;
 
             case 'M':
@@ -58,7 +50,7 @@ public class RoversController {
         }
 
         currentPosition.setCoordinates(newCoordinates);
-        currentPosition.setDirection(Direction.valueOf(headingValue));
+        currentPosition.setOrientation(Orientation.valueOf(headingValue));
 
         return currentPosition;
     }
@@ -67,7 +59,7 @@ public class RoversController {
         int xCoord = currentPosition.getCoordinates().getXCoord();
         int yCoord = currentPosition.getCoordinates().getYCoord();
 
-        switch(currentPosition.getDirection().getHeadingValue()) {
+        switch(currentPosition.getOrientation().getHeadingValue()) {
             case 0: //N
                 if (yCoord != upperRightCoord.getYCoord()) yCoord++;
                 break;

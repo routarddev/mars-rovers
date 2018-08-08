@@ -1,5 +1,7 @@
 import controller.RoversControllerTest;
-import model.DirectionTest;
+import interaction.InputProcessorTest;
+import interaction.ProcessStepsTest;
+import model.OrientationTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -9,8 +11,10 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        RoversControllerTest.class,
-        DirectionTest.class
+        InputProcessorTest.class,
+        OrientationTest.class,
+        ProcessStepsTest.class,
+        RoversControllerTest.class
 })
 public class MarsRoversTestSuite {
 }

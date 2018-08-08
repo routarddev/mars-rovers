@@ -19,24 +19,26 @@ public class ProcessSteps {
 
     public void run(String... args) {
         InputProcessor inputProcessor = new InputProcessor();
-        switch(args[0]) {
-            case "2":
-                inputProcessor.processFromConsole();
-                break;
-            case "3":
-                inputProcessor.processFromApi();
-                break;
-            default:
-                try {
-                    System.out.println("Process From File");
+
+        try {
+            switch (args[0]) {
+                case "2":
+                    inputProcessor.processFromConsole();
+                    break;
+                case "3":
+                    inputProcessor.processFromApi();
+                    break;
+                default:
                     if (args.length > 1 && !args[1].isEmpty() && new File(args[1]).exists())
                         inputProcessor.processFromFile(args[1]);
                     else
                         inputProcessor.processFromFile(Constants.INPUT_FILE_PATHNAME);
-                } catch(Exception ex) {
-                    System.out.println(ex.getMessage());
-                }
-                break;
+
+                    break;
+            }
+        }
+        catch(Exception ex) {
+            System.out.println(ex.getMessage());
         }
 
         List<Position> resultPositions = new LinkedList<>();

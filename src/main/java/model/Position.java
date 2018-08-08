@@ -13,13 +13,13 @@ import lombok.Setter;
 public class Position {
 
     private Coordinates coordinates;
-    private Direction direction;
+    private Orientation orientation;
 
     @Override
     public String toString() {
         return  coordinates.getXCoord() + " " +
                 coordinates.getYCoord() + " " +
-                direction.name();
+                orientation.name();
     }
 
 }
