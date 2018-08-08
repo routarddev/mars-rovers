@@ -19,8 +19,7 @@ The position is made up of two integers and a letter separated by spaces, corres
 
 Each rover will be finished sequentially, which means that the second rover won’t start to move until the first one has finished Moving.
 
-OUTPUT
-
+OUTPUT:
 The output for each rover should be its final co-ordinates and heading.
 
 EXAMPLE OF INPUT AND OUTPUT
