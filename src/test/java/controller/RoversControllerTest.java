@@ -17,62 +17,62 @@ public class RoversControllerTest {
 
     @Test
     public void testRoverFinalPosition() {
-        Position roverPosition = new Position(new Coordinates(3, 3), Direction.EAST);
+        Position roverPosition = new Position(new Coordinates(3, 3), Direction.E);
         Coordinates upperRightCoord = new Coordinates(5, 5);
         String chainOfInstructions = "MMRMMRMRRM";
 
         roversController = new RoversController(roverPosition, upperRightCoord, chainOfInstructions);
         Position finalPosition = roversController.getRoverFinalPosition();
 
-        assertResult(finalPosition, 5, 1, Direction.EAST);
+        assertResult(finalPosition, 5, 1, Direction.E);
     }
 
     @Test
     public void testRoverHeadingLeft() {
-        Position roverPosition = new Position(new Coordinates(1, 2), Direction.NORTH);
+        Position roverPosition = new Position(new Coordinates(1, 2), Direction.N);
         Coordinates upperRightCoord = new Coordinates(5, 5);
         String chainOfInstructions = "L";
 
         roversController = new RoversController(roverPosition, upperRightCoord, chainOfInstructions);
         Position finalPosition = roversController.getRoverFinalPosition();
 
-        assertResult(finalPosition, 1, 2, Direction.WEST);
+        assertResult(finalPosition, 1, 2, Direction.W);
     }
 
     @Test
     public void testRoverHeadingRight() {
-        Position roverPosition = new Position(new Coordinates(1, 2), Direction.NORTH);
+        Position roverPosition = new Position(new Coordinates(1, 2), Direction.N);
         Coordinates upperRightCoord = new Coordinates(5, 5);
         String chainOfInstructions = "R";
 
         roversController = new RoversController(roverPosition, upperRightCoord, chainOfInstructions);
         Position finalPosition = roversController.getRoverFinalPosition();
 
-        assertResult(finalPosition, 1, 2, Direction.EAST);
+        assertResult(finalPosition, 1, 2, Direction.E);
     }
 
     @Test
     public void testRoverMoveOneStep() {
-        Position roverPosition = new Position(new Coordinates(1, 2), Direction.NORTH);
+        Position roverPosition = new Position(new Coordinates(1, 2), Direction.N);
         Coordinates upperRightCoord = new Coordinates(5, 5);
         String chainOfInstructions = "M";
 
         roversController = new RoversController(roverPosition, upperRightCoord, chainOfInstructions);
         Position finalPosition = roversController.getRoverFinalPosition();
 
-        assertResult(finalPosition,1, 3, Direction.NORTH);
+        assertResult(finalPosition,1, 3, Direction.N);
     }
 
     @Test
     public void testRoverOutOfBounds() {
-        Position roverPosition = new Position(new Coordinates(1, 2), Direction.WEST);
+        Position roverPosition = new Position(new Coordinates(1, 2), Direction.W);
         Coordinates upperRightCoord = new Coordinates(5, 5);
         String chainOfInstructions = "MMMLMMMMLMMMMMMMMMMLMMMMMMMMMMM";
 
         roversController = new RoversController(roverPosition, upperRightCoord, chainOfInstructions);
         Position finalPosition = roversController.getRoverFinalPosition();
 
-        assertResult(finalPosition, 5, 5, Direction.NORTH);
+        assertResult(finalPosition, 5, 5, Direction.N);
     }
 
     private void assertResult(Position finalPosition,

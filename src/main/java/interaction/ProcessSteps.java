@@ -1,13 +1,12 @@
 package interaction;
 
+import utils.Constants;
 import controller.RoversController;
 import lombok.NoArgsConstructor;
 import model.Position;
 import model.Rover;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,11 @@ public class ProcessSteps {
                 break;
             default:
                 try {
-                    inputProcessor.processFromFile("src/main/resources/inputFile.txt");
+                    System.out.println("Process From File");
+                    if (args.length > 1 && !args[1].isEmpty() && new File(args[1]).exists())
+                        inputProcessor.processFromFile(args[1]);
+                    else
+                        inputProcessor.processFromFile(Constants.INPUT_FILE_PATHNAME);
                 } catch(Exception ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -51,14 +54,14 @@ public class ProcessSteps {
 
     private void showResults(List<Position> resultPosition, int option) {
         switch(option) {
-            case 2:
+            case 2: //Console
                 for(Position result: resultPosition)
-                    System.out.println(result.getCoordinates().toString());
+                    System.out.println(result.toString());
                 break;
-            case 3:
+            case 3: //API
                 //TO DO
                 break;
-            default:
+            default: //File
                 try {
                     writeFile(resultPosition);
                 } catch(IOException ex) {
@@ -69,14 +72,15 @@ public class ProcessSteps {
     }
 
     private void writeFile(List<Position> resultPosition) throws IOException {
-        FileOutputStream file = new FileOutputStream("src/main/resources/outputFile.txt");
-        ObjectOutputStream out = new ObjectOutputStream(file);
+
+        FileWriter fileWriter = new FileWriter(Constants.OUTPUT_FILE_PATHNAME);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
 
         for(Position result: resultPosition)
-            out.writeObject(result.getCoordinates().toString());
+            printWriter.println(result.toString());
 
-        out.close();
-        file.close();
+        printWriter.close();
+        fileWriter.close();
     }
 
 }

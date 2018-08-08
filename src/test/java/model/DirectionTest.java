@@ -15,10 +15,10 @@ public class DirectionTest {
 
     @Test
     public void getHeadingValueTest() {
-        direction = Direction.NORTH;
+        direction = Direction.N;
         assertNotNull(direction);
         assertNotNull(direction.getHeadingValue());
-        assertEquals(Direction.NORTH.getHeadingValue(), direction.getHeadingValue());
+        assertEquals(Direction.N.getHeadingValue(), direction.getHeadingValue());
     }
 
     @Test
@@ -29,10 +29,10 @@ public class DirectionTest {
 
     @Test
     public void getHeadingByValueTest() {
-        direction = Direction.EAST;
+        direction = Direction.E;
         assertNotNull(direction.getHeadingValue());
-        assertEquals(Direction.EAST.getHeadingValue(), direction.getHeadingValue());
-        assertEquals(Direction.EAST, Direction.valueOf(direction.getHeadingValue()));
+        assertEquals(Direction.E.getHeadingValue(), direction.getHeadingValue());
+        assertEquals(Direction.E, Direction.valueOf(direction.getHeadingValue()));
     }
 
 }

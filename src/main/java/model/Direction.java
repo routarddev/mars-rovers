@@ -12,10 +12,10 @@ import java.util.Map;
 @AllArgsConstructor
 public enum Direction {
 
-    NORTH(0), //NORTH
-    EAST(1), //EAST
-    SOUTH(2), //SOUTH
-    WEST(3); //WEST
+    N(0), //NORTH
+    E(1), //EAST
+    S(2), //SOUTH
+    W(3); //WEST
 
     @Getter
     private final int headingValue;
@@ -29,6 +29,7 @@ public enum Direction {
     }
 
     public static Direction valueOf(int direction) {
+
         return (Direction) map.get(direction);
     }
 }

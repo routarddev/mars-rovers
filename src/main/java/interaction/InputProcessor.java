@@ -1,5 +1,6 @@
 package interaction;
 
+import utils.Constants;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import model.Coordinates;
@@ -37,18 +38,18 @@ public class InputProcessor {
 
         //Expecting plateau size information in the heading
         String line = br.readLine();
-        if (line != null && verifyLine(line, false)) {
-            String[] plateauCoord = line.split(" ");
+        if (line != null && hasExpectedPattern(line, false)) {
+            String[] plateauCoord = line.split(Constants.LINE_SEPARATOR);
             plateau = new Coordinates(  Integer.parseInt(plateauCoord[0]),
                                         Integer.parseInt(plateauCoord[1]));
         } //else finish with error message
         else return;
 
         int numberOfRovers = 0;
-        while ((line = br.readLine()) != null) {
-            if (!verifyLine(line, true)) return;
+        while ((line = br.readLine().toUpperCase()) != null) {
+            if (!hasExpectedPattern(line, true)) return;
             Rover rover = processLines(numberOfRovers++, line);
-            rovers.put(rover, br.readLine());
+            rovers.put(rover, br.readLine().toUpperCase());
         }
     }
 
@@ -61,18 +62,20 @@ public class InputProcessor {
         Scanner scanner = new Scanner(System.in);
 
         String line = scanner.nextLine();
-        if (line != null && verifyLine(line, false)) {
-            String[] plateauCoord = line.split(" ");
+        if (line != null && hasExpectedPattern(line, false)) {
+            String[] plateauCoord = line.split(Constants.LINE_SEPARATOR);
             plateau = new Coordinates(  Integer.parseInt(plateauCoord[0]),
                     Integer.parseInt(plateauCoord[1]));
         } //else finish with error message
         else return;
 
+        System.out.println("Read rovers positions and movements");
         int numberOfRovers = 0;
         while (scanner.hasNextLine()) {
-            if (!verifyLine(scanner.nextLine(), true)) return;
+            line = scanner.nextLine().toUpperCase();
+            if (!hasExpectedPattern(line, true)) return;
             Rover rover = processLines(numberOfRovers++, line);
-            rovers.put(rover, scanner.nextLine());
+            rovers.put(rover, scanner.nextLine().toUpperCase());
         }
     }
 
@@ -84,7 +87,7 @@ public class InputProcessor {
      * @return
      */
     private Rover processLines(int count, String positionString) {
-        String[] pos = positionString.split(" ");
+        String[] pos = positionString.split(Constants.LINE_SEPARATOR);
         Position position = new Position(new Coordinates(   Integer.parseInt(pos[0]),
                 Integer.parseInt(pos[1])),
                 Direction.valueOf(pos[2]));
@@ -92,14 +95,14 @@ public class InputProcessor {
     }
 
     /**
-     *
-     * @param line
-     * @param hasDirection
-     * @return
+     * Verify that the line matches the expected pattern
+     * @param line String that is currently being read
+     * @param hasDirection true if the orientation is provided, false otherwise
+     * @return true if line matches the expected pattern, false otherwise
      */
-    private boolean verifyLine(String line, boolean hasDirection) {
+    private boolean hasExpectedPattern(String line, boolean hasDirection) {
         String pattern = "\\d+\\s\\d+";
-        if (hasDirection) pattern += "\\[N|E|S|W]";
+        if (hasDirection) pattern += "\\s[NESW]";
         return line.matches(pattern);
     }
 
