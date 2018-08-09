@@ -41,26 +41,27 @@ Expected Output:
 (Introduction text by &copy;XING)
 
 ### Assumptions:
-
+- Assuming that the plateau is just one piece of the planet and, therefore, not "limitless", when the rover is in the limits of it and trying to move forward, nothing will be done.
+- For the coordinates and orientation data, if the line pattern is not the expected (two integers and a letter separated by spaces), the program ends.
+- For the instructions line, the full line will be taken and processed, but only the known instructions will be accepted and executed.
+- By default, the program will read the information from a file. The default file is the inputFile.txt in the resources folder and can be modified. Executing the program by command line is possible to specify another filename with the full path. In both cases, the output solution will be found in the outputFile.txt of the resources folder.
 
 ### Execution:
-Maven is used to build the project: https://maven.apache.org/
-- Project build, inside the root of the project folder, where the pom.xml is: 
-		```mvn clean install``` --> builds project and executes the tests
+This program has been developed in **Java** and **Spring Boot** and **Maven** has been used to build the project.
+
+- Project build: inside the root of the project folder, where the `pom.xml` is:
+		```mvn clean install``` --> builds the project, downloading the dependencies and executes the tests
 
 - Program execution:
-  1. Run the main program  from the Run options of your IDE.
-  2. Or navigate folder containing the pom.xml file and execute the following command:
-  ```mvn spring-boot:run -Dspring-boot.run.arguments="firstArgument,secondArgument"```
-
-where:
-
-firstArgument:
-1: read from file
-2: read from console
-3: read from API (to be done)
-
-secondArgument: only valid for option 1, should be the name of the input file with full pathname.
+  - Run the main program from the Run options of your IDE.
+  - Or navigate to the folder containing the `pom.xml` file and execute the following command:
+	```mvn spring-boot:run -Dspring-boot.run.arguments="firstArgument,secondArgument"```
+	* Where:
+		* firstArgument:
+			- 1 : read from file
+			- 2 : read from console
+		* secondArgument: only valid for option 1, should be the name of the input file with full pathname.
 
 Example:
-mvn spring-boot:run -Dspring-boot.run.arguments="1,"/home/user/inputFileTest.txt"
+
+```mvn spring-boot:run -Dspring-boot.run.arguments="1,"/home/user/inputFileTest.txt"```
