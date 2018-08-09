@@ -1,4 +1,4 @@
-# mars-rovers
+# Mars Rovers
 
 ### Introduction
 
@@ -44,7 +44,7 @@ Expected Output:
 - Assuming that the plateau is just one piece of the planet and, therefore, not "limitless", when the rover is in the limits of it and trying to move forward, nothing will be done.
 - For the coordinates and orientation data, if the line pattern is not the expected (two integers and a letter separated by spaces), the program ends.
 - For the instructions line, the full line will be taken and processed, but only the known instructions will be accepted and executed.
-- By default, the program will read the information from a file. The default file is the inputFile.txt in the resources folder and can be modified. Executing the program by command line is possible to specify another filename with the full path. In both cases, the output solution will be found in the outputFile.txt of the resources folder.
+- By default, the program will read the information from a file. The default file is the `inputFile.txt` in the `resources` folder and can be modified. Executing the program by command line is possible to specify another filename with the full path. In both cases, the output solution will be found in the `outputFile.txt` of the `resources` folder.
 
 ### Execution:
 This program has been developed in **Java** and **Spring Boot** and **Maven** has been used to build the project.
