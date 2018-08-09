@@ -1,6 +1,8 @@
 package utils;
 
 /**
+ * Literals used during the application (messages, user interaction, files, etc.)
+ *
  * Created by routarddev on 8/08/18.
  */
 public final class Constants {

@@ -10,12 +10,15 @@ import utils.Constants;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 /**
+ * Processes input data depending on the input mode (file, console, etc.)
+ * and retrieves the information related to the plateau size and the rover
+ * coordinates, orientation and list of instructions.
+ *
  * Created by routarddev on 8/08/18.
  */
 @NoArgsConstructor
@@ -29,9 +32,9 @@ public class InputProcessor {
     private Coordinates plateau;
 
     /**
-     *
-     * @param fileName
-     * @throws IOException
+     * Extract data from a file
+     * @param fileName where to find the required information
+     * @throws Exception error message if something went wrong
      */
     public void processFromFile(String fileName) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -57,7 +60,9 @@ public class InputProcessor {
 
 
     /**
-     *
+     * Get data from the console. Only the information in the specified form
+     * is expected, there will be no other interaction unless something is wrong.
+     * To end input reading, wait for two empty lines.
      */
     public void processFromConsole() throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -82,10 +87,10 @@ public class InputProcessor {
 
 
     /**
-     *
-     * @param count
-     * @param positionString
-     * @return
+     * Creates new Rover with the retrieved information
+     * @param count to assign unique id to the current rover
+     * @param positionString data related to the position
+     * @return new Rover instance
      */
     private Rover processLines(int count, String positionString) {
         String[] pos = positionString.split(Constants.LINE_SEPARATOR);
@@ -105,14 +110,6 @@ public class InputProcessor {
         String pattern = "\\d+\\s\\d+";
         if (hasDirection) pattern += "\\s[NESW]";
         return line.matches(pattern);
-    }
-
-
-    /**
-     * TODO
-     */
-    public void processFromApi() {
-
     }
 
 

@@ -1,7 +1,5 @@
 package controller;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import model.Coordinates;
 import model.Orientation;
 import model.Position;
@@ -9,14 +7,22 @@ import model.Position;
 /**
  * Created by routarddev on 7/08/18.
  */
-@NoArgsConstructor
-@AllArgsConstructor
 public class RoversController {
 
     private Position roverPosition;
     private Coordinates upperRightCoord;
     private String chainOfInstructions;
+    private RoverInstruction roverMovement;
 
+
+    public RoversController(Position roverPosition,
+                            Coordinates upperRightCoord,
+                            String chainOfInstructions) {
+        this.roverPosition = roverPosition;
+        this.upperRightCoord = upperRightCoord;
+        this.chainOfInstructions = chainOfInstructions;
+        this.roverMovement = new RoverInstruction();
+    }
 
     public Position getRoverFinalPosition() {
         for(char instruction: chainOfInstructions.toCharArray()) {
@@ -27,21 +33,19 @@ public class RoversController {
 
     private Position processInstruction(Position currentPosition, char instruction) {
         Coordinates newCoordinates = currentPosition.getCoordinates();
-        int headingValue = currentPosition.getOrientation().getHeadingValue();
+        Orientation newOrientation = currentPosition.getOrientation();
 
         switch(instruction) {
             case 'L':
-                headingValue--;
-                headingValue = Math.floorMod(headingValue, Orientation.values().length);
+                newOrientation = roverMovement.turnLeft(currentPosition.getOrientation());
                 break;
 
             case 'R':
-                headingValue++;
-                headingValue = Math.floorMod(headingValue, Orientation.values().length);
+                newOrientation = roverMovement.turnRight(currentPosition.getOrientation());
                 break;
 
             case 'M':
-                newCoordinates = move(currentPosition);
+                newCoordinates = roverMovement.move(currentPosition, upperRightCoord);
                 break;
 
             default: //unknown instruction
@@ -50,33 +54,9 @@ public class RoversController {
         }
 
         currentPosition.setCoordinates(newCoordinates);
-        currentPosition.setOrientation(Orientation.valueOf(headingValue));
+        currentPosition.setOrientation(newOrientation);
 
         return currentPosition;
     }
 
-    private Coordinates move(Position currentPosition) {
-        int xCoord = currentPosition.getCoordinates().getXCoord();
-        int yCoord = currentPosition.getCoordinates().getYCoord();
-
-        switch(currentPosition.getOrientation().getHeadingValue()) {
-            case 0: //N
-                if (yCoord != upperRightCoord.getYCoord()) yCoord++;
-                break;
-
-            case 1: //E
-                if (xCoord != upperRightCoord.getXCoord()) xCoord++;
-                break;
-
-            case 2: //S
-                if (yCoord != 0) yCoord--;
-                break;
-
-            case 3: //W
-                if (xCoord != 0) xCoord--;
-                break;
-        }
-
-        return new Coordinates(xCoord, yCoord);
-    }
 }

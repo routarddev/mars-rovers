@@ -9,6 +9,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
 /**
+ * JUnit tests for RoversController class.
+ *
+ * Should be improved using Mockito or PowerMock to mock RoverInstruction class,
+ * as its responsibilities are already tested in RoverInstructionTest.
+ *
  * Created by routarddev on 8/08/18.
  */
 public class RoversControllerTest {
@@ -63,11 +68,30 @@ public class RoversControllerTest {
         assertResult(finalPosition,1, 3, Orientation.N);
     }
 
+    /**
+     * Several instructions for which the Rover can't move because it's in the limits of the plateau.
+     */
     @Test
     public void testRoverOutOfBounds() {
         Position roverPosition = new Position(new Coordinates(1, 2), Orientation.W);
         Coordinates upperRightCoord = new Coordinates(5, 5);
         String chainOfInstructions = "MMMLMMMMLMMMMMMMMMMLMMMMMMMMMMM";
+
+        roversController = new RoversController(roverPosition, upperRightCoord, chainOfInstructions);
+        Position finalPosition = roversController.getRoverFinalPosition();
+
+        assertResult(finalPosition, 5, 5, Orientation.N);
+    }
+
+    /**
+     * The list of instructions contains several invalid instructions. In this case, when
+     *      treating the specific instruction, the Rover will do nothing.
+     */
+    @Test
+    public void testRoverInvalidInstructions() {
+        Position roverPosition = new Position(new Coordinates(1, 2), Orientation.W);
+        Coordinates upperRightCoord = new Coordinates(5, 5);
+        String chainOfInstructions = "abbbF4MLwRMM";
 
         roversController = new RoversController(roverPosition, upperRightCoord, chainOfInstructions);
         Position finalPosition = roversController.getRoverFinalPosition();

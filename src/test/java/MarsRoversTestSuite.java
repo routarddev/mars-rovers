@@ -1,3 +1,4 @@
+import controller.RoverInstructionTest;
 import controller.RoversControllerTest;
 import interaction.InputProcessorTest;
 import interaction.ProcessStepsTest;
@@ -14,7 +15,8 @@ import org.junit.runners.Suite;
         InputProcessorTest.class,
         OrientationTest.class,
         ProcessStepsTest.class,
-        RoversControllerTest.class
+        RoversControllerTest.class,
+        RoverInstructionTest.class
 })
 public class MarsRoversTestSuite {
 }
