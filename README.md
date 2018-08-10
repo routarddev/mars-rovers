@@ -38,13 +38,21 @@ Expected Output:
 5 1 E
 ```
 
-(Introduction text by &copy;XING)
+(Introduction text received from &copy;XING)
 
-### Assumptions:
+### Notes:
+
+#### Assumptions
 - Assuming that the plateau is just one piece of the planet and, therefore, not "limitless", when the rover is in the limits of it and trying to move forward, nothing will be done.
 - For the coordinates and orientation data, if the line pattern is not the expected (two integers and a letter separated by spaces), the program ends.
 - For the instructions line, the full line will be taken and processed, but only the known instructions will be accepted and executed.
 - By default, the program will read the information from a file. The default file is the `inputFile.txt` in the `resources` folder and can be modified. Executing the program by command line is possible to specify another filename with the full path. In both cases, the output solution will be found in the `outputFile.txt` of the `resources` folder.
+
+#### Suggestions
+Several things should be improved to offer code extension and new functionalities:
+- [ ] Create **Plateau class** with lower left and upper right coodinates. This will be useful, for example, in case we want to treat several Mars plateaus, each one of them with a list of rovers on it or even a map of obstacles.
+- [ ] Add the possibility to add **new commands** and change the current command pattern, for example, creating a Command class with attributes like delimiter or separator, command length, command type, etc.
+- [ ] **Code refactor** for classes dealing with inputs. Suggestion: extract interface class with processInformation method and for each input create a class to treat the information.
 
 ### Execution:
 This program has been developed in **Java** and **Spring Boot** and **Maven** has been used to build the project.
